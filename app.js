@@ -12,6 +12,23 @@ var routes = require('./routes/index');
 
 var app = express();
 
+//db
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/apis');
+var Schema = mongoose.Schema;
+var API = new Schema({
+  url: { type: String, required: true},
+	command: { type: String, required: true},
+});
+var APIModel = mongoose.model('API', API);
+/*
+var product = new APIModel({
+	url : 'http://store.apple.com/hk-zh/browse/home/specialdeals/mac/macbook_pro/15',
+	command : '$("table")'
+})
+product.save();
+*/
+
 // view engine setup
 app.engine("html", consolidate.handlebars);
 app.set("view engine", "html");
