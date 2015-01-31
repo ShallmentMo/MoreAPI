@@ -9,8 +9,28 @@ var handlebars = require('handlebars');
 var fs = require('fs');
 
 var routes = require('./routes/index');
+var api_routes = require('./routes/apis');
 
 var app = express();
+
+//db
+/*
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/apis');
+var Schema = mongoose.Schema;
+var API = new Schema({
+  url: { type: String, required: true},
+	command: { type: String, required: true},
+});
+var APIModel = mongoose.model('API', API);
+*/
+/*
+var product = new APIModel({
+	url : 'http://store.apple.com/hk-zh/browse/home/specialdeals/mac/macbook_pro/15',
+	command : '$("table")'
+})
+product.save();
+*/
 
 // view engine setup
 app.engine("html", consolidate.handlebars);
@@ -34,6 +54,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/apis', api_routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
